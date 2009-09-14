@@ -42,7 +42,7 @@ static const CGFloat kSectionHeaderHeight = 35;
 // UITableViewDelegate
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-  if (tableView.style == UITableViewStylePlain && TTSTYLEVAR(tableHeaderTintColor)) {
+  if (TTSTYLEVAR(tableHeaderTintColor)) {
     if ([tableView.dataSource respondsToSelector:@selector(tableView:titleForHeaderInSection:)]) {
       NSString* title = [tableView.dataSource tableView:tableView titleForHeaderInSection:section];
       if (title.length) {
@@ -51,7 +51,11 @@ static const CGFloat kSectionHeaderHeight = 35;
           if (!_headers) {
             _headers = [[NSMutableDictionary alloc] init];
           }
-          header = [[[TTTableHeaderView alloc] initWithTitle:title] autorelease];
+          if (tableView.style == UITableViewStylePlain) {
+            header = [[[TTTableHeaderView alloc] initWithTitle:title] autorelease];
+          } else {
+            header = [[[TTTableGroupedHeaderView alloc] initWithTitle:title] autorelease];
+          }
           [_headers setObject:header forKey:title];
         }
         return header;
@@ -180,9 +184,6 @@ static const CGFloat kSectionHeaderHeight = 35;
 @end
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-@interface TTTableViewGroupedVarHeightDelegate : TTTableViewVarHeightDelegate
-@end
 
 @implementation TTTableViewGroupedVarHeightDelegate
 

@@ -40,3 +40,17 @@
 
 @end
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+@implementation TTTableGroupedHeaderView
+
+- (id)initWithTitle:(NSString*)title {
+  if (self = [super initWithTitle:title]) {
+    self.style = TTSTYLE(tableGroupedHeader);
+    _label.font = TTSTYLEVAR(tableHeaderGroupedFont);
+  }
+  return self;
+}
+
+
+@end

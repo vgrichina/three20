@@ -36,3 +36,8 @@
 
 @interface TTTableViewPlainVarHeightDelegate : TTTableViewVarHeightDelegate
 @end
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+@interface TTTableViewGroupedVarHeightDelegate : TTTableViewVarHeightDelegate
+@end

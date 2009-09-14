@@ -148,6 +148,11 @@
                        left:nil width:1 next:nil]]];
 }
 
+- (TTStyle*)tableGroupedHeader {
+    return nil;
+}
+
+
 - (TTStyle*)pickerCell:(UIControlState)state {
   if (state & UIControlStateSelected) {
     return
