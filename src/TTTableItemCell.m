@@ -284,6 +284,11 @@ static const CGFloat kDefaultMessageImageHeight = 34;
   TTTableCaptionItem* item = object;
 
   CGFloat width = tableView.width - kHPadding*2;
+    
+  // Take disclosure indicator width into account if URL is present
+  if (item.URL) {
+    width -= kDisclosureIndicatorWidth;
+  }      
 
   CGSize detailTextSize = [item.text sizeWithFont:TTSTYLEVAR(tableFont)
                                      constrainedToSize:CGSizeMake(width, CGFLOAT_MAX)
