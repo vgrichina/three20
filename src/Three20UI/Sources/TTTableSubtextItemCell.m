@@ -24,6 +24,7 @@
 #import "Three20Style/TTGlobalStyle.h"
 #import "Three20Style/TTDefaultStyleSheet.h"
 
+static const CGFloat kDisclosureIndicatorWidth = 23;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,6 +64,11 @@
   TTTableCaptionItem* item = object;
 
   CGFloat width = tableView.width - kTableCellHPadding*2;
+
+  // Take disclosure indicator width into account if URL is present
+  if (item.URL) {
+    width -= kDisclosureIndicatorWidth;
+  }
 
   CGSize detailTextSize = [item.text sizeWithFont:TTSTYLEVAR(tableFont)
                                 constrainedToSize:CGSizeMake(width, CGFLOAT_MAX)
