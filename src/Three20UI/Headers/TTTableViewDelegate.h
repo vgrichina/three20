@@ -46,8 +46,3 @@
 @property (nonatomic, readonly) TTTableViewController* controller;
 
 @end
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-@interface TTTableViewGroupedVarHeightDelegate : TTTableViewVarHeightDelegate
-@end
