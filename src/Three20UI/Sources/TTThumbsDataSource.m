@@ -159,7 +159,16 @@ static CGFloat kThumbSpacing = 4;
   if ([cell isKindOfClass:[TTThumbsTableViewCell class]]) {
     TTThumbsTableViewCell* thumbsCell = (TTThumbsTableViewCell*)cell;
     thumbsCell.delegate = _delegate;
-    thumbsCell.columnCount = self.columnCount;
+    if (indexPath.row < [self tableView:tableView numberOfRowsInSection:indexPath.section] - 1) {
+        thumbsCell.columnCount = self.columnCount;
+    } else {
+    	int cellColumnCount = self.photoSource.numberOfPhotos % self.columnCount;
+        if (cellColumnCount == 0) {
+            cellColumnCount = self.columnCount;
+        }
+
+        thumbsCell.columnCount = cellColumnCount;
+    }
   }
 }
 
