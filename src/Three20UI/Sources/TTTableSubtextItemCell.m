@@ -92,19 +92,22 @@ static const CGFloat kDisclosureIndicatorWidth = 23;
 - (void)layoutSubviews {
   [super layoutSubviews];
 
+  CGFloat maxWidth = self.contentView.width - kTableCellHPadding*2;
+
   if (!self.textLabel.text.length) {
     CGFloat titleHeight = self.textLabel.height + self.detailTextLabel.height;
 
     [self.detailTextLabel sizeToFit];
+    self.detailTextLabel.left = kTableCellHPadding;
     self.detailTextLabel.top = floor(self.contentView.height/2 - titleHeight/2);
-    self.detailTextLabel.left = self.detailTextLabel.top*2;
+    self.detailTextLabel.width = maxWidth;
 
   } else {
     [self.detailTextLabel sizeToFit];
     self.detailTextLabel.left = kTableCellHPadding;
     self.detailTextLabel.top = kTableCellVPadding;
+    self.detailTextLabel.width = maxWidth;
 
-    CGFloat maxWidth = self.contentView.width - kTableCellHPadding*2;
     CGSize captionSize =
     [self.textLabel.text sizeWithFont:self.textLabel.font
                     constrainedToSize:CGSizeMake(maxWidth, CGFLOAT_MAX)
