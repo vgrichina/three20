@@ -70,7 +70,7 @@
 
     [style draw:context];
     if (!context.didDrawContent) {
-      [self drawContent:self.bounds];
+      [self drawContent:context.contentFrame];
     }
 
   } else {
