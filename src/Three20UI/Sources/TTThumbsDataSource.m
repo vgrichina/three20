@@ -20,6 +20,7 @@
 #import "Three20UI/TTPhotoSource.h"
 #import "Three20UI/TTTableMoreButton.h"
 #import "Three20UI/TTThumbsTableViewCell.h"
+#import "Three20UI/TTPhoto.h"
 
 // UINavigator
 #import "Three20UINavigator/TTGlobalNavigatorMetrics.h"
@@ -159,15 +160,10 @@ static CGFloat kThumbSpacing = 4;
   if ([cell isKindOfClass:[TTThumbsTableViewCell class]]) {
     TTThumbsTableViewCell* thumbsCell = (TTThumbsTableViewCell*)cell;
     thumbsCell.delegate = _delegate;
-    if (indexPath.row < [self tableView:tableView numberOfRowsInSection:indexPath.section] - 1) {
-        thumbsCell.columnCount = self.columnCount;
+    if (thumbsCell.photo.index + self.columnCount > _photoSource.numberOfPhotos) {
+      thumbsCell.columnCount = _photoSource.numberOfPhotos - thumbsCell.photo.index;
     } else {
-    	int cellColumnCount = self.photoSource.numberOfPhotos % self.columnCount;
-        if (cellColumnCount == 0) {
-            cellColumnCount = self.columnCount;
-        }
-
-        thumbsCell.columnCount = cellColumnCount;
+      thumbsCell.columnCount = self.columnCount;
     }
   }
 }
