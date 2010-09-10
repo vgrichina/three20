@@ -125,6 +125,14 @@ static const CGFloat kDefaultThumbSize = 75;
 #pragma mark -
 #pragma mark TTTableViewCell
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)prepareForReuse {
+  // Column count needs to be reset, because otherwise setPhoto may crash
+  // when there are actually less photos than current number of columns
+  self.columnCount = 0;
+  [super prepareForReuse];
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)object {
@@ -197,10 +205,9 @@ static const CGFloat kDefaultThumbSize = 75;
       return;
     }
 
-    NSInteger i = 0;
-    for (TTThumbView* thumbView in _thumbViews) {
+    for (NSInteger i = 0; i < _columnCount; i++) {
+      TTThumbView* thumbView = [_thumbViews objectAtIndex:i];
       [self assignPhotoAtIndex:_photo.index+i toView:thumbView];
-      ++i;
     }
   }
 }
