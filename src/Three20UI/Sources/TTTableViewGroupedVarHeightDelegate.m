@@ -28,6 +28,10 @@ static const CGFloat kSectionHeaderHeight = 35;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
+  if (![tableView.dataSource respondsToSelector:@selector(tableView:titleForHeaderInSection:)]) {
+    return kEmptyHeaderHeight;
+  }
+
   NSString* title = [tableView.dataSource tableView:tableView titleForHeaderInSection:section];
   if (!title.length) {
     return kEmptyHeaderHeight;
