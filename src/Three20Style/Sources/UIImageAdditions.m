@@ -83,10 +83,13 @@
   }
 
   CGImageRef imageRef = self.CGImage;
-  int bytesPerRow = destW * (CGImageGetBitsPerPixel(imageRef) >> 3);
-  CGContextRef bitmap = CGBitmapContextCreate(NULL, destW, destH,
-    CGImageGetBitsPerComponent(imageRef), bytesPerRow, CGImageGetColorSpace(imageRef),
-    CGImageGetBitmapInfo(imageRef));
+  int bytesPerRow = round(destW) * 8;
+
+  // Always creating 32-bit images with premultiplied last alpha.
+  // Otherwise if would often fail (for original image in other format) with
+  // "CGBitmapContextCreate: unsupported parameter combination" error
+  CGContextRef bitmap = CGBitmapContextCreate(NULL, destW, destH, 8, bytesPerRow,
+                                              CGImageGetColorSpace(imageRef), kCGImageAlphaPremultipliedLast);
 
   if (rotate) {
     if (self.imageOrientation == UIImageOrientationDown) {
