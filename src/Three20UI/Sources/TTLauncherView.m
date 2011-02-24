@@ -1,5 +1,5 @@
 //
-// Copyright 2009-2010 Facebook
+// Copyright 2009-2011 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,8 +24,8 @@
 #import "Three20UI/UIViewAdditions.h"
 
 // UI (private)
-#import "Three20UI/TTLauncherScrollView.h"
-#import "Three20UI/TTLauncherHighlightView.h"
+#import "Three20UI/private/TTLauncherScrollView.h"
+#import "Three20UI/private/TTLauncherHighlightView.h"
 
 // UICommon
 #import "Three20UICommon/TTGlobalUICommon.h"
@@ -64,6 +64,7 @@ static const NSInteger kDefaultColumnCount = 3;
 @implementation TTLauncherView
 
 @synthesize columnCount = _columnCount;
+@synthesize pager       = _pager;
 @synthesize prompt      = _prompt;
 @synthesize editing     = _editing;
 @synthesize delegate    = _delegate;
@@ -131,11 +132,7 @@ static const NSInteger kDefaultColumnCount = 3;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (CGFloat)rowHeight {
-//  if (UIInterfaceOrientationIsPortrait(TTInterfaceOrientation())) {
-    return 103;
-//  } else {
-//    return 74;
-//  }
+  return round(_scrollView.height / 3);
 }
 
 
@@ -674,6 +671,12 @@ static const NSInteger kDefaultColumnCount = 3;
   if (_dragTouch) {
     for (UITouch* touch in touches) {
       if (touch == _dragTouch) {
+
+        // New delegate method
+        if ([_delegate respondsToSelector:@selector(launcherViewDidEndDragging:)]) {
+          [_delegate launcherViewDidEndDragging:self];
+        }
+
         _dragTouch = nil;
         break;
       }
@@ -686,6 +689,13 @@ static const NSInteger kDefaultColumnCount = 3;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark UIView
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setFrame:(CGRect)newFrame {
+  [super setFrame:newFrame];
+  [self layoutButtons];
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -965,7 +975,7 @@ static const NSInteger kDefaultColumnCount = 3;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)beginHighlightItem:(TTLauncherItem*)item withText:(NSString*)text {
   if (nil == _highlightView) {
-    _highlightView = [[TTLauncherHighlightView alloc] initWithFrame:self.window.bounds];
+    _highlightView = [[TTLauncherHighlightView alloc] initWithFrame:CGRectZero];
     _highlightView.parentView = self;
     [self.window addSubview:_highlightView];
   }

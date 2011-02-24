@@ -1,5 +1,5 @@
 //
-// Copyright 2009-2010 Facebook
+// Copyright 2009-2011 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -996,6 +996,12 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat) tableBannerViewHeight {
+  return 22;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 - (UIFont*)photoCaptionFont {
   return [UIFont boldSystemFontOfSize:12];
 }
@@ -1129,7 +1135,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (UIFont*)tableRefreshHeaderStatusFont {
-  return [UIFont boldSystemFontOfSize:13.0f];
+  return [UIFont boldSystemFontOfSize:14.0f];
 }
 
 
@@ -1141,13 +1147,13 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (UIColor*)tableRefreshHeaderTextColor {
-  return RGBCOLOR(87, 108, 137);
+  return RGBCOLOR(109, 128, 153);
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (UIColor*)tableRefreshHeaderTextShadowColor {
-  return [UIColor colorWithWhite:0.9 alpha:1];
+  return [[UIColor whiteColor] colorWithAlphaComponent:0.9];
 }
 
 

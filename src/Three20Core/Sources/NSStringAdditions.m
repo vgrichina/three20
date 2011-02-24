@@ -1,5 +1,5 @@
 //
-// Copyright 2009-2010 Facebook
+// Copyright 2009-2011 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -42,6 +42,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (BOOL)isEmptyOrWhitespace {
+  // A nil or NULL string is not the same as an empty string
   return !self.length ||
          ![self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length;
 }
@@ -56,6 +57,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Copied and pasted from http://www.mail-archive.com/cocoa-dev@lists.apple.com/msg28175.html
+// Deprecated
 - (NSDictionary*)queryDictionaryUsingEncoding:(NSStringEncoding)encoding {
   NSCharacterSet* delimiterSet = [NSCharacterSet characterSetWithCharactersInString:@"&;"];
   NSMutableDictionary* pairs = [NSMutableDictionary dictionary];
@@ -77,6 +79,35 @@
   return [NSDictionary dictionaryWithDictionary:pairs];
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (NSDictionary*)queryContentsUsingEncoding:(NSStringEncoding)encoding {
+  NSCharacterSet* delimiterSet = [NSCharacterSet characterSetWithCharactersInString:@"&;"];
+  NSMutableDictionary* pairs = [NSMutableDictionary dictionary];
+  NSScanner* scanner = [[[NSScanner alloc] initWithString:self] autorelease];
+  while (![scanner isAtEnd]) {
+    NSString* pairString = nil;
+    [scanner scanUpToCharactersFromSet:delimiterSet intoString:&pairString];
+    [scanner scanCharactersFromSet:delimiterSet intoString:NULL];
+    NSArray* kvPair = [pairString componentsSeparatedByString:@"="];
+    if (kvPair.count == 1 || kvPair.count == 2) {
+      NSString* key = [[kvPair objectAtIndex:0] 
+                       stringByReplacingPercentEscapesUsingEncoding:encoding];
+      NSMutableArray* values = [pairs objectForKey:key];
+      if (!values) {
+        values = [NSMutableArray array];
+        [pairs setObject:values forKey:key];
+      }
+      if (kvPair.count == 1) {
+        [values addObject:[NSNull null]];
+      } else if (kvPair.count == 2) {
+        NSString* value = [[kvPair objectAtIndex:1] 
+                           stringByReplacingPercentEscapesUsingEncoding:encoding];
+        [values addObject:value];
+      }
+    }
+  }
+  return [NSDictionary dictionaryWithDictionary:pairs];
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (NSString*)stringByAddingQueryDictionary:(NSDictionary*)query {
@@ -137,6 +168,9 @@
   return [[self dataUsingEncoding:NSUTF8StringEncoding] md5Hash];
 }
 
+- (NSString*)sha1Hash {
+  return [[self dataUsingEncoding:NSUTF8StringEncoding] sha1Hash];
+}
 
 @end
 

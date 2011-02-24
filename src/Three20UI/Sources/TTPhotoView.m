@@ -1,5 +1,5 @@
 //
-// Copyright 2009-2010 Facebook
+// Copyright 2009-2011 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@
 #import "Three20UI/UIViewAdditions.h"
 
 // UI (private)
-#import "Three20UI/TTImageViewInternal.h"
+#import "Three20UI/private/TTImageViewInternal.h"
 
 // UINavigator
 #import "Three20UINavigator/TTGlobalNavigatorMetrics.h"

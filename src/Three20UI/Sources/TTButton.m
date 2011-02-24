@@ -1,5 +1,5 @@
 //
-// Copyright 2009-2010 Facebook
+// Copyright 2009-2011 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 #import "Three20UI/TTButton.h"
 
 // UI (private)
-#import "Three20UI/TTButtonContent.h"
+#import "Three20UI/private/TTButtonContent.h"
 
 // UI
 #import "Three20UI/TTImageViewDelegate.h"

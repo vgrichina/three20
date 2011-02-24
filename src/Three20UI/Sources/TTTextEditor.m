@@ -1,5 +1,5 @@
 //
-// Copyright 2009-2010 Facebook
+// Copyright 2009-2011 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,11 +17,13 @@
 #import "Three20UI/TTTextEditor.h"
 
 // UI
-#import "Three20UI/TTTextView.h"
-#import "Three20UI/TTTextEditorInternal.h"
 #import "Three20UI/TTTextEditorDelegate.h"
 #import "Three20UI/UIViewAdditions.h"
 #import "Three20Style/UIFontAdditions.h"
+
+// UI (private)
+#import "Three20UI/private/TTTextView.h"
+#import "Three20UI/private/TTTextEditorInternal.h"
 
 // Style
 #import "Three20Style/TTGlobalStyle.h"
@@ -248,6 +250,18 @@ static const CGFloat kUITextViewVerticalPadding = 6;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark UIResponder
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (BOOL)isFirstResponder {
+  return [[self activeTextField] isFirstResponder];
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (BOOL)canBecomeFirstResponder {
+  return [[self activeTextField] canBecomeFirstResponder];
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

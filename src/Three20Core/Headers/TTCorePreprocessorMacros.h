@@ -1,5 +1,5 @@
 //
-// Copyright 2009-2010 Facebook
+// Copyright 2009-2011 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,6 +14,9 @@
 // limitations under the License.
 //
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Code Management
+
 /**
  * Borrowed from Apple's AvailabiltyInternal.h header. There's no reason why we shouldn't be
  * able to use this macro, as it's a gcc-supported flag.
@@ -21,13 +24,6 @@
  * __AVAILABILITY_INTERNAL_DEPRECATED         __attribute__((deprecated))
  */
 #define __TTDEPRECATED_METHOD __attribute__((deprecated))
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// Errors
-
-#define TT_ERROR_DOMAIN @"three20.net"
-
-#define TT_EC_INVALID_IMAGE 101
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,5 +1,5 @@
 //
-// Copyright 2009-2010 Facebook
+// Copyright 2009-2011 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -374,7 +374,6 @@ static const CGFloat kMarginY = 6;
 
   if (_defaultText) {
     _textView.text = _defaultText;
-    TT_RELEASE_SAFELY(_defaultText);
   } else {
     _defaultText = [_textView.text retain];
   }
