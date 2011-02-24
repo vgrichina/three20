@@ -160,7 +160,7 @@ static CGFloat kThumbSpacing = 4;
   if ([cell isKindOfClass:[TTThumbsTableViewCell class]]) {
     TTThumbsTableViewCell* thumbsCell = (TTThumbsTableViewCell*)cell;
     thumbsCell.delegate = _delegate;
-    if (thumbsCell.photo.index + self.columnCount > _photoSource.numberOfPhotos) {
+    if (thumbsCell.photo.index + [self columnCountForView:tableView] > _photoSource.numberOfPhotos) {
       thumbsCell.columnCount = _photoSource.numberOfPhotos - thumbsCell.photo.index;
     } else {
       thumbsCell.columnCount = [self columnCountForView:tableView];
