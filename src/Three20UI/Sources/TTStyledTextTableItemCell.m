@@ -46,6 +46,7 @@ static const CGFloat kDisclosureIndicatorWidth = 23;
   if (self = [super initWithStyle:style reuseIdentifier:identifier]) {
     _label = [[TTStyledTextLabel alloc] init];
     _label.contentMode = UIViewContentModeLeft;
+    _label.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:_label];
   }
 
@@ -97,15 +98,6 @@ static const CGFloat kDisclosureIndicatorWidth = 23;
 
   TTTableStyledTextItem* item = self.object;
   _label.frame = CGRectOffset(self.contentView.bounds, item.margin.left, item.margin.top);
-}
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-- (void)didMoveToSuperview {
-  [super didMoveToSuperview];
-  if (self.superview) {
-    _label.backgroundColor = self.backgroundColor;
-  }
 }
 
 
