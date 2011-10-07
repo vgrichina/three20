@@ -43,7 +43,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)initWithNext:(TTStyle*)next {
-  if (self = [super initWithNext:next]) {
+	self = [super initWithNext:next];
+  if (self) {
     _contentMode = UIViewContentModeScaleToFill;
     _size = CGSizeZero;
   }
@@ -159,6 +160,10 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)draw:(TTStyleContext*)context {
   UIImage* image = [self imageForContext:context];
+  if (!image) {
+    image = self.defaultImage;
+  }
+
   if (image) {
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextSaveGState(ctx);
