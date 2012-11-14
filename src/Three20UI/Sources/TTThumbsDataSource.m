@@ -33,8 +33,8 @@
 #import "Three20Core/TTGlobalCoreLocale.h"
 #import "Three20Core/TTCorePreprocessorMacros.h"
 
-static CGFloat kThumbSize = 75;
-static CGFloat kThumbSpacing = 4;
+static CGFloat kThumbSize = 75.0f;
+static CGFloat kThumbSpacing = 4.0f;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -198,6 +198,12 @@ static CGFloat kThumbSpacing = 4;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (NSString*)subtitleForEmpty {
   return TTLocalizedString(@"This photo set contains no photos.", @"");
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (BOOL)reloadButtonForEmpty {
+  return NO;
 }
 
 
